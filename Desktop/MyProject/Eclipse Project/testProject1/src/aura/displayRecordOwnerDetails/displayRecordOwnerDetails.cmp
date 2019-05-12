@@ -1,0 +1,34 @@
+<aura:component controller="recordOwnerImage"  implements="force:lightningQuickAction,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" >
+    <aura:attribute name="sObjectName" type="String" /> <!-- Object api-->
+    <aura:attribute name="ObjectRecord" type="Object"/> <!-- Object Record-->
+    <aura:attribute name="recordLoadError" type="String"/>
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" /> <!-- onload handler-->
+    <aura:attribute name="recordOwner" type="Id"/> <!-- Record Owner Id-->
+    <aura:attribute name="oUser" type="user" default="{'sobjectType' : 'User'}" /> <!-- User Object -->
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      fields="Name,CreatedById"
+                      targetFields="{!v.ObjectRecord}"
+                      targetError="{!v.recordLoadError}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+                      />
+   
+    
+    <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="{!v.sObjectName}">
+        <lightning:card>
+            <div class="c-container">
+                <lightning:layout>
+                    <lightning:layoutItem flexibility="auto" padding="horizontal-medium">
+                        <div class="custom-box"><label>Record Owner Name</label>
+                            <lightning:outputField fieldName="CreatedById" variant="label-hidden"/></div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="horizontal-medium">
+                        <div class="custom-box"><label>Record Owner Picture</label><br/>
+                            <lightning:avatar src="{!v.oUser.SmallPhotoUrl}" /></div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+        </lightning:card>   
+    </lightning:recordViewForm>
+</aura:component>
