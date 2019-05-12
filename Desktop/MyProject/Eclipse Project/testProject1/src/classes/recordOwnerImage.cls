@@ -1,5 +1,5 @@
 public class recordOwnerImage {
-	//Lightning Component method start here 
+	//Lightning Component method start here --
 	 @AuraEnabled    
     public static user fetchUserImage(Id recordOwnerId){
         system.debug('recordOwnerId----'+recordOwnerId);
